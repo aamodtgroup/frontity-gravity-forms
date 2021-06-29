@@ -1,0 +1,32 @@
+{
+  "name": "@aamodtgroup/frontity-gravity-forms",
+  "version": "0.1.4",
+  "description": "Gravity Forms extension for Frontity theme.",
+  "keywords": [
+    "Frontity",
+    "Gravity",
+    "forms",
+    "WordPress",
+    "Reactjs",
+    "react",
+    "frontity-gf"
+  ],
+  "homepage": "https://aamodtgroup.com",
+  "license": "GPL-2.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aamodtgroup/frontity-gravity-forms"
+  },
+  "bugs": {
+    "url": "https://github.com/aamodtgroup/frontity-gravity-forms/issues"
+  },
+  "author": "Aamodt Group",
+  "peerDependencies": {
+    "frontity": "^1.15.0",
+    "@frontity/html2react": "^1.6.2"
+  },
+  "publishConfig": {
+    "cache": "~/.npm",
+    "access": "public"
+  }
+}
