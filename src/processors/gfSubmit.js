@@ -1,9 +1,9 @@
-import Textarea from "../components/Textarea";
+import Input from "../components/Input";
 
-export const gfTextarea = {
-    name: "gfTextarea",
+export const gfSubmit = {
+    name: "gfSubmit",
     test: ({ node }) =>
-        node.component === "textarea" && /textarea/.test(node.props.className),
+        node.component === "input" && node.props.type === "submit",
     processor: ({ node }) => {
         const ariaInvalid =
             "undefined" === typeof node.props["aria-invalid"]
@@ -19,13 +19,13 @@ export const gfTextarea = {
                 : node.props.className;
         const id = "undefined" === typeof node.props.id ? null : node.props.id;
         const name =
-            "undefined" === typeof node.props.name ? null : node.props.name;
-        const cols =
-            "undefined" === typeof node.props.cols ? null : node.props.cols;
-        const rows =
-            "undefined" === typeof node.props.rows ? null : node.props.rows;
+            "undefined" === typeof node.props.type ? null : node.props.type;
+        const size =
+            "undefined" === typeof node.props.size ? null : node.props.size;
+        const type =
+            "undefined" === typeof node.props.type ? null : node.props.type;
         const value =
-            "undefined" === typeof node.props.value ? "" : node.props.value;
+            "undefined" === typeof node.props.value ? null : node.props.value;
         const placeholder =
             "undefined" === typeof node.props.placeholder
                 ? null
@@ -37,13 +37,13 @@ export const gfTextarea = {
             className: className,
             id: id,
             name: name,
-            cols: cols,
-            rows: rows,
+            size: size,
+            type: type,
             value: value,
             placeholder: placeholder,
         };
 
-        node.component = Textarea;
+        node.component = Input;
         return node;
     },
 };

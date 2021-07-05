@@ -1,14 +1,14 @@
 import Form from "../components/Form";
 
 export const gfForm = {
-	name: "gfForm",
-	test: ({ node }) => node.component === "form" && /gform/.test( node.props.id ),
+    name: "gfForm",
+    test: ({ node }) =>
+        node.component === "form" && /gform/.test(node.props.id),
 
-	processor: ({ node }) => {
+    processor: ({ node }) => {
+        node.props.id = node.props.id;
+        node.component = Form;
 
-		node.props.id = node.props.id;
-		node.component = Form;
-
-		return node;
-	}
+        return node;
+    },
 };

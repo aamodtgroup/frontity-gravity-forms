@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { connect, styled } from "frontity";
 import FormIdContext from "./../context/FormIdContext";
 
@@ -12,33 +12,36 @@ import FormIdContext from "./../context/FormIdContext";
  * @return {*|string}
  *
  */
-const Message = ( { state, libraries } ) => {
+const Message = ({ state, libraries }) => {
+    const id = React.useContext(FormIdContext);
+    const responseInfo = state.gf.forms[id];
 
-	const id           = React.useContext( FormIdContext );
-	const responseInfo = state.gf.forms[ id ];
+    // Get the html2react component for the message.
+    const Html2React = libraries.html2react.Component;
 
-	// Get the html2react component for the message.
-	const Html2React = libraries.html2react.Component;
+    /**
+     * Get the error or success message
+     *
+     * @return {string|*}
+     */
+    const getMessage = () => {
+        if (
+            "sent" === responseInfo.status &&
+            typeof responseInfo.message === "string"
+        ) {
+            return (
+                <SuccessMessage>
+                    <Html2React html={responseInfo.message} />
+                </SuccessMessage>
+            );
+        } else if ("failed" === responseInfo.status) {
+            return <ErrorMessage>{responseInfo.message}</ErrorMessage>;
+        } else {
+            return "";
+        }
+    };
 
-	/**
-	 * Get the error or success message
-	 *
-	 * @return {string|*}
-	 */
-	const getMessage = () => {
-
-		if ( 'sent' === responseInfo.status && typeof responseInfo.message === 'string' ) {
-			return <SuccessMessage><Html2React html={responseInfo.message} /></SuccessMessage>
-		} else if ( 'failed' === responseInfo.status ) {
-			return <ErrorMessage>{responseInfo.message}</ErrorMessage>
-		} else {
-			return '';
-		}
-
-	};
-
-	return getMessage();
-
+    return getMessage();
 };
 
 const SuccessMessage = styled.div`
@@ -51,4 +54,4 @@ const ErrorMessage = styled.div`
     padding: 0.75rem 1.25rem;
 `;
 
-export default connect( Message );
+export default connect(Message);

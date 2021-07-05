@@ -1,9 +1,10 @@
-import Textarea from "../components/Textarea";
+import Select from "../components/Select";
 
-export const gfTextarea = {
-    name: "gfTextarea",
+export const gfSelect = {
+    name: "gfSelect",
     test: ({ node }) =>
-        node.component === "textarea" && /textarea/.test(node.props.className),
+        node.component === "select" &&
+        /gfield_select/.test(node.props.className),
     processor: ({ node }) => {
         const ariaInvalid =
             "undefined" === typeof node.props["aria-invalid"]
@@ -20,16 +21,19 @@ export const gfTextarea = {
         const id = "undefined" === typeof node.props.id ? null : node.props.id;
         const name =
             "undefined" === typeof node.props.name ? null : node.props.name;
-        const cols =
-            "undefined" === typeof node.props.cols ? null : node.props.cols;
-        const rows =
-            "undefined" === typeof node.props.rows ? null : node.props.rows;
         const value =
-            "undefined" === typeof node.props.value ? "" : node.props.value;
-        const placeholder =
-            "undefined" === typeof node.props.placeholder
+            "undefined" === typeof node.children[0].props.value
                 ? null
-                : node.props.placeholder;
+                : node.children[0].props.value;
+        const optionChildrens =
+            "undefined" === typeof node.children ? null : node.children;
+
+        const options = optionChildrens.map((item) => {
+            return {
+                label: item.children[0].content,
+                value: item.props.value,
+            };
+        });
 
         node.props.inputProps = {
             ariaInvalid: ariaInvalid,
@@ -37,13 +41,11 @@ export const gfTextarea = {
             className: className,
             id: id,
             name: name,
-            cols: cols,
-            rows: rows,
             value: value,
-            placeholder: placeholder,
+            options: options,
         };
 
-        node.component = Textarea;
+        node.component = Select;
         return node;
     },
 };
